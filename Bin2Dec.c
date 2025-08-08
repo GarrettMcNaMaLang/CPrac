@@ -7,28 +7,37 @@
 
 #define False 0;
 
+typedef struct Node
+{
+    char bit;
+    struct Node* nextNode;
+};
+
+
+
 struct Stack
 {
+    int nextNode;
+
+    struct Node array[8];
+
+    struct Node* topElement;
+
+    struct Node* popped;
+
+    struct Node* temp;
+
     
-    char secretArray[8];
-
-    char topElement;
-
-    char popped;
-
-    char temp;
-
-    char shiftArrayp[];
     
 };
 
-typedef struct Stack stack;
+
 
 int main()
 {
     int base10Num;
 
-    stack newStack;
+    struct Stack newStack;
 
     char scanInto;
 
@@ -39,6 +48,8 @@ int main()
     {
 
         //printf("CharacterInQuestion: %c \n", &string[iterator]);
+
+        printf("Insert a 0 or 1 into the stack");
 
         scanf("%c", &scanInto);
         
@@ -61,15 +72,21 @@ int main()
     return 0;
 }
 
-int Push(char value, stack pushHere)
+int Push(char value, struct Stack pushHere)
 {
     printf("User Inputted: %c\n\n", value);
 
+    
+
+    if(IsEmpty(pushHere))
+    {
+
      if(value == '1' || value == '0')
         {
-            pushHere.temp = pushHere.topElement;
+            
+            pushHere.array[8].bit = value;
 
-            pushHere.topElement = value;
+            pushHere.topElement = &pushHere.array[8];
 
             return True;
 
@@ -80,13 +97,31 @@ int Push(char value, stack pushHere)
             printf("\nValue given is not 0 or 1, input only 0 or 1\n");
             return False;
         }
+    }
+    
 }
 
-char Pop(stack popHere){
+char Pop(struct Stack popHere){
     char returning;
 
     returning = popHere.topElement;
     
 
+}
+
+int IsEmpty(struct Stack isEmpty)
+{
+    if(isEmpty.topElement = NULL)
+    {
+        return True;
+    }
+    else{
+        return False;
+    }
+}
+
+int isFull(struct Stack isFull)
+{
+    
 }
 
