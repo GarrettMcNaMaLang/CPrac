@@ -7,29 +7,31 @@
 
 #define False 0;
 
-typedef struct Node
+#define MAXARRAYSIZE 8
+
+typedef struct
 {
     char bit;
-    struct Node* nextNode;
-};
+    Node* nextNode;
+} Node;
 
 
 
-struct Stack
+typedef struct 
 {
     int nextNode;
 
-    struct Node array[8];
+    Node array[MAXARRAYSIZE];
 
-    struct Node* topElement;
+    Node* topElement;
 
-    struct Node* popped;
+    Node* popped;
 
-    struct Node* temp;
+    Node* temp;
 
     
     
-};
+} Stack;
 
 
 
@@ -37,11 +39,11 @@ int main()
 {
     int base10Num;
 
-    struct Stack newStack;
+    Stack *newStack;
 
     char scanInto;
 
-    int iterator = 8;
+    int iterator = MAXARRAYSIZE;
 
 
     do
@@ -59,10 +61,7 @@ int main()
         {
             iterator--;
         }
-        else
-        {
-            continue;
-        }
+        
 
         
         
@@ -72,7 +71,13 @@ int main()
     return 0;
 }
 
-int Push(char value, struct Stack pushHere)
+void StackStart(Stack *stack)
+{
+    stack->topElement = NULL;
+}
+
+
+int Push(char value, Stack *pushHere)
 {
     printf("User Inputted: %c\n\n", value);
 
@@ -84,9 +89,9 @@ int Push(char value, struct Stack pushHere)
      if(value == '1' || value == '0')
         {
             
-            pushHere.array[8].bit = value;
+            pushHere->array[MAXARRAYSIZE - 1].bit = value;
 
-            pushHere.topElement = &pushHere.array[8];
+            pushHere->topElement = &pushHere->array[MAXARRAYSIZE - 1];
 
             return True;
 
@@ -101,17 +106,17 @@ int Push(char value, struct Stack pushHere)
     
 }
 
-char Pop(struct Stack popHere){
+char Pop(Stack *popHere){
     char returning;
 
-    returning = popHere.topElement;
+    returning = popHere->topElement;
     
 
 }
 
-int IsEmpty(struct Stack isEmpty)
+int IsEmpty(Stack *isEmpty)
 {
-    if(isEmpty.topElement = NULL)
+    if(isEmpty->topElement == NULL)
     {
         return True;
     }
@@ -120,8 +125,14 @@ int IsEmpty(struct Stack isEmpty)
     }
 }
 
-int isFull(struct Stack isFull)
+int isFull(Stack *isFull)
 {
-    
+    if(isFull->topElement == MAXARRAYSIZE - 1)
+    {
+        return True;
+    }
+    else{
+        return False;
+    }
 }
 
