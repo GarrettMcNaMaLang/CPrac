@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 #define True 1;
 
@@ -12,7 +13,7 @@
 typedef struct
 {
     char bit;
-    Node* nextNode;
+    struct Node* nextNode;
 } Node;
 
 
@@ -29,22 +30,102 @@ typedef struct
 
     Node* temp;
 
-    
+    int iterator;
     
 } Stack;
+
+int IsEmpty(Stack *isEmpty)
+{
+    if(isEmpty->topElement == 0)
+    {
+        return True;
+    }
+    else{
+        return False;
+    }
+}
+
+int isFull(Stack *isFull)
+{
+    if(isFull->iterator == MAXARRAYSIZE - 1)
+    {
+        return True;
+    }
+    else{
+        return False;
+    }
+}
+
+void StackStart(Stack *stack)
+{
+    stack->topElement = 0;
+}
+
+
+int Push(char value, Stack *pushHere)
+{
+    printf("User Inputted: %c\n\n", value);
+
+    if(value != '1' || value != '0')
+        return False;
+
+    if(isFull(pushHere))
+        return False;
+
+    if(IsEmpty(pushHere))
+    {
+
+    
+            
+            
+
+            pushHere->array[++pushHere->iterator].bit = value;
+
+            pushHere->topElement = &pushHere->array[pushHere->iterator];
+            
+            //pushHere->nextNode = &pushHere->array[++pushHere->iterator];
+
+            return True;
+
+            
+        
+            
+    }
+    
+
+    
+    
+}
+
+char Pop(Stack *popHere){
+
+    if(IsEmpty(popHere))
+        return -1;
+
+    char returning = popHere->topElement->bit;
+
+    popHere->topElement = &popHere->array[--popHere->iterator];
+
+    return returning;
+    
+
+}
 
 
 
 int main()
 {
-    int base10Num;
+    int base10Num = 0;
 
-    Stack *newStack;
+    char fullString[MAXARRAYSIZE];
+
+    Stack *newStack = newStack;
 
     char scanInto;
 
-    int iterator = MAXARRAYSIZE;
+    int iterator = MAXARRAYSIZE - 1;
 
+    StackStart(newStack);
 
     do
     {
@@ -67,72 +148,22 @@ int main()
         
     }while (iterator >= 0);
 
+    iterator = MAXARRAYSIZE - 1;
+
+    do{
+        char currBit = Pop(newStack);
+
+        int decBit = currBit - '0';
+
+        base10Num += decBit * (2^iterator);
+
+
+    }while (iterator >= 0);
+
+    printf("Decimal value: %d", base10Num);
     
     return 0;
 }
 
-void StackStart(Stack *stack)
-{
-    stack->topElement = NULL;
-}
 
-
-int Push(char value, Stack *pushHere)
-{
-    printf("User Inputted: %c\n\n", value);
-
-    
-
-    if(IsEmpty(pushHere))
-    {
-
-     if(value == '1' || value == '0')
-        {
-            
-            pushHere->array[MAXARRAYSIZE - 1].bit = value;
-
-            pushHere->topElement = &pushHere->array[MAXARRAYSIZE - 1];
-
-            return True;
-
-            
-        }
-        else
-        {
-            printf("\nValue given is not 0 or 1, input only 0 or 1\n");
-            return False;
-        }
-    }
-    
-}
-
-char Pop(Stack *popHere){
-    char returning;
-
-    returning = popHere->topElement;
-    
-
-}
-
-int IsEmpty(Stack *isEmpty)
-{
-    if(isEmpty->topElement == NULL)
-    {
-        return True;
-    }
-    else{
-        return False;
-    }
-}
-
-int isFull(Stack *isFull)
-{
-    if(isFull->topElement == MAXARRAYSIZE - 1)
-    {
-        return True;
-    }
-    else{
-        return False;
-    }
-}
 
