@@ -10,27 +10,34 @@
 
 #define MAXARRAYSIZE 8
 
-
-
-typedef struct 
+typedef struct node
 {
-    int nextNode;
+    char val;
+    struct node *next;
+    struct node *previous;
+    /* data */
+}node_ch;
 
-    char array[MAXARRAYSIZE];
 
-    char* topElement;
 
+typedef struct stack
+{
+    int currAmount;
+    node_ch* currNode;
+
+    //char array[MAXARRAYSIZE];
+
+    node_ch* Head;
+    
     char* popped;
 
     char* temp;
-
-    int iterator;
     
 } Stack;
 
-int IsEmpty(Stack *isEmpty)
+int IsEmpty(Stack* isEmpty)
 {
-    if(isEmpty->topElement == 0)
+    if(isEmpty->Head == NULL)
     {
         return True;
     }
@@ -39,9 +46,9 @@ int IsEmpty(Stack *isEmpty)
     }
 }
 
-int isFull(Stack *isFull)
+int isFull(Stack* isFull)
 {
-    if(isFull->iterator == MAXARRAYSIZE - 1)
+    if(isFull->currAmount == MAXARRAYSIZE - 1)
     {
         return True;
     }
@@ -52,7 +59,8 @@ int isFull(Stack *isFull)
 
 void StackStart(Stack *stack)
 {
-    stack->topElement = 0;
+    //stack->Head = NULL;
+    
 }
 
 
@@ -68,24 +76,24 @@ int Push(char value, Stack *pushHere)
 
     if(IsEmpty(pushHere))
     {
-
-    
-            
-            
-
-            //pushHere->array[++pushHere->iterator].bit = value;
-
-            pushHere->topElement = &pushHere->array[pushHere->iterator];
-            
-            //pushHere->nextNode = &pushHere->array[++pushHere->iterator];
-
-            return True;
-
-            
+        pushHere->Head->val = value;
+        pushHere->Head->next = pushHere->currNode;
+        pushHere->Head->previous = NULL;
+        pushHere->currAmount++;
         
+            
             
     }
     
+    pushHere->currNode = (node_ch*) malloc(sizeof(node_ch));
+    pushHere->currNode->val = value;
+    pushHere->currNode->next = NULL;
+    pushHere->currNode->previous = pushHere->currNode;
+    pushHere->currNode = pushHere->currNode->next;
+    pushHere->currAmount++;
+    
+    
+    return True;
 
     
     
@@ -98,8 +106,10 @@ char Pop(Stack *popHere){
 
     //char returning = popHere->topElement->bit;
 
-    popHere->topElement = &popHere->array[--popHere->iterator];
-
+    popHere->currNode = popHere->currNode->previous;
+    return popHere->currNode->val;
+    
+    
     //               6return returning;
     
 
@@ -111,7 +121,7 @@ int main()
 {
     int base10Num = 0;
 
-    char fullString[MAXARRAYSIZE];
+   
 
     Stack *newStack = newStack;
 
@@ -126,9 +136,11 @@ int main()
 
         //printf("CharacterInQuestion: %c \n", &string[iterator]);
 
-        printf("Insert a 0 or 1 into the stack");
+        printf("Insert a 0 or 1 into the stack\n\n");
 
-        scanf("%c", &scanInto);
+        scanf("%c\n\n", &scanInto);
+
+        
         
         int result = Push(scanInto, newStack);
 
