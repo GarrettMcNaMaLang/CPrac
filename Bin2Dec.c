@@ -10,25 +10,19 @@
 
 #define MAXARRAYSIZE 8
 
-typedef struct
-{
-    char bit;
-    struct Node* nextNode;
-} Node;
-
 
 
 typedef struct 
 {
     int nextNode;
 
-    Node array[MAXARRAYSIZE];
+    char array[MAXARRAYSIZE];
 
-    Node* topElement;
+    char* topElement;
 
-    Node* popped;
+    char* popped;
 
-    Node* temp;
+    char* temp;
 
     int iterator;
     
@@ -79,7 +73,7 @@ int Push(char value, Stack *pushHere)
             
             
 
-            pushHere->array[++pushHere->iterator].bit = value;
+            //pushHere->array[++pushHere->iterator].bit = value;
 
             pushHere->topElement = &pushHere->array[pushHere->iterator];
             
@@ -102,11 +96,11 @@ char Pop(Stack *popHere){
     if(IsEmpty(popHere))
         return -1;
 
-    char returning = popHere->topElement->bit;
+    //char returning = popHere->topElement->bit;
 
     popHere->topElement = &popHere->array[--popHere->iterator];
 
-    return returning;
+    //               6return returning;
     
 
 }
