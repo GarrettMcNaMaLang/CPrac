@@ -129,7 +129,7 @@ int main()
 
     int iterator = MAXARRAYSIZE - 1;
 
-    StackStart(newStack);
+    //StackStart(newStack);
 
     do
     {
@@ -140,7 +140,7 @@ int main()
 
         scanf("%c\n\n", &scanInto);
 
-        
+        printf("User Inputted: %c\n\n", scanInto);
         
         int result = Push(scanInto, newStack);
 
